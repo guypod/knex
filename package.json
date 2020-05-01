@@ -18,7 +18,8 @@
     "pool2": "^1.1.0",
     "readable-stream": "^1.1.12",
     "tildify": "~1.0.0",
-    "v8flags": "^2.0.2"
+    "v8flags": "^2.0.2",
+    "snyk": "^1.316.1"
   },
   "devDependencies": {
     "JSONStream": "^1.0.3",
@@ -56,9 +57,10 @@
     "dev": "babel -L -D -w src/ --out-dir lib/",
     "lint": "eslint src/**",
     "plaintest": "mocha --check-leaks -t 10000 -b -R spec test/index.js && npm run tape",
-    "prepublish": "npm run build",
+    "prepublish": "npm run snyk-protect && npm run build",
     "tape": "node test/tape/index.js | tap-spec",
-    "test": "npm run babel && istanbul --config=test/.istanbul.yml cover node_modules/mocha/bin/_mocha -- --check-leaks -t 5000 -b -R spec test/index.js && npm run tape && (npm run build && echo BUILD TEST OK || echo BUILD TEST FAILED)"
+    "test": "npm run babel && istanbul --config=test/.istanbul.yml cover node_modules/mocha/bin/_mocha -- --check-leaks -t 5000 -b -R spec test/index.js && npm run tape && (npm run build && echo BUILD TEST OK || echo BUILD TEST FAILED)",
+    "snyk-protect": "snyk protect"
   },
   "bin": {
     "knex": "./lib/bin/cli.js"
@@ -105,5 +107,6 @@
     "knex.js",
     "LICENSE"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "snyk": true
 }
